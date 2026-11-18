@@ -1,11 +1,14 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,6 +37,7 @@ public class Reservation {
     private Vehicule vehicule;
 
     // 1 Reservation -> 1 Contrat
+    @JsonIgnore
     @OneToOne(
             mappedBy = "reservation"
     )

@@ -1,5 +1,7 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +29,7 @@ public class Agence {
     private String telephone;
 
     // 1 Agence -> N Vehicules
+    @JsonIgnore
     @OneToMany(
             mappedBy = "agence",
             fetch = FetchType.LAZY
@@ -33,6 +37,7 @@ public class Agence {
     private List<Vehicule> vehicules = new ArrayList<>();
 
     // 1 Agence -> N Employes
+    @JsonIgnore
     @OneToMany(
             mappedBy = "agence",
             fetch = FetchType.LAZY
