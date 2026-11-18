@@ -13,4 +13,8 @@ public interface IVehiculeService {
     Vehicule save(Vehicule entity);
 
     void deleteById(Long id);
+
+    Vehicule affecterEquipement(Long idVehicule, Long idEquipement);
+
+    Vehicule desaffecterEquipement(Long idVehicule, Long idEquipement);
 }
