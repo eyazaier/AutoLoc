@@ -1,6 +1,8 @@
 package tn.esprit.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.domain.Agence;
@@ -8,11 +10,13 @@ import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.repositories.AgenceRepository;
 import tn.esprit.autoloc.repositories.VehiculeRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class AgenceServiceImp implements IAgenceService {
 
     private final AgenceRepository agenceRepository;
@@ -66,5 +70,12 @@ public class AgenceServiceImp implements IAgenceService {
             agenceSaved.getVehicules().add(vehiculeSaved);
         }
         return agenceSaved;
+    }
+
+    @Scheduled(fixedDelay = 120000)
+    public void suivreNombreAgences() {
+        List<Agence> agences = agenceRepository.findAll();
+        log.info("Vérification des agences du {} : {} agence(s) enregistrée(s)",
+                LocalDateTime.now(), agences.size());
     }
 }
