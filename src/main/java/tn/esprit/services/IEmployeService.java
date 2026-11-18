@@ -13,4 +13,8 @@ public interface IEmployeService {
     Employe save(Employe entity);
 
     void deleteById(Long id);
+
+    public Employe desaffecterEmploye(Long idEmploye);
+
+    public Employe affecterEmploye(Long idEmploye, Long idAgence);
 }
