@@ -13,4 +13,6 @@ public interface IAgenceService {
     Agence save(Agence entity);
 
     void deleteById(Long id);
+
+    Agence ajouterAgenceEtAffecterVehicules(Agence agence);
 }

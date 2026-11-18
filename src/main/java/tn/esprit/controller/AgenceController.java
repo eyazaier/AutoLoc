@@ -40,6 +40,23 @@ public class AgenceController {
         }
     }
 
+    @PostMapping("/ajouterAgenceEtAffecterVehicules")
+    @Operation(summary = "Ajouter une agence et lui affecter deux nouveaux véhicules")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Agence et véhicules créés"),
+            @ApiResponse(responseCode = "400", description = "Requête invalide")
+    })
+    public ResponseEntity<Agence> ajouterAgenceEtAffecterVehicules(@RequestBody(required = false) Agence agence) {
+        if (agence == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        try {
+            return ResponseEntity.status(201).body(agenceService.ajouterAgenceEtAffecterVehicules(agence));
+        } catch (IllegalArgumentException | DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @GetMapping
     @Operation(summary = "Afficher toutes les agences")
     @ApiResponses(value = {
