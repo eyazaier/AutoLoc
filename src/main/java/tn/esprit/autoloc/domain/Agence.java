@@ -28,11 +28,12 @@ public class Agence {
 
     private String telephone;
 
-    // 1 Agence -> N Vehicules
-    @JsonIgnore
-    @OneToMany(
-            mappedBy = "agence",
-            fetch = FetchType.LAZY
+    // N Agences <-> N Vehicules (côté propriétaire)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "agence_vehicule",
+            joinColumns = @JoinColumn(name = "agence_id"),
+            inverseJoinColumns = @JoinColumn(name = "vehicule_id")
     )
     private List<Vehicule> vehicules = new ArrayList<>();
 
